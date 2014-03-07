@@ -37,11 +37,18 @@ class WeatherServiceActor extends Actor with WeatherService {
 trait WeatherService extends HttpService {
 
   implicit val exec = actorRefFactory.dispatcher
+
   import Sun.sunStatusFormat
 
   val corsHeaders = List(HttpHeaders.`Access-Control-Allow-Origin`(AllOrigins),
     HttpHeaders.`Access-Control-Allow-Methods`(GET, POST, OPTIONS, DELETE),
     HttpHeaders.`Access-Control-Allow-Headers`("Origin, X-Requested-With, Content-Type, Accept, Accept-Encoding, Accept-Language, Host, Referer, User-Agent"))
+
+
+  def error(e: Throwable) = e.getCause match {
+    case dispatch.StatusCode(400) => StatusCodes.NotFound -> Error("No information for these parameters")
+    case _ => StatusCodes.Conflict -> Error(e.getMessage)
+  }
 
   val myRoute = respondWithHeaders(corsHeaders: _*) {
     parameters('start_date, 'end_date, 'zip) {
@@ -51,27 +58,20 @@ trait WeatherService extends HttpService {
             onComplete(Sun.getData(start_date, end_date, zip)) {
               case Success(value) =>
                 complete(value)
-              case Failure(e) => complete{
-                StatusCodes.FailedDependency -> Error(e.getMessage)
-              }
+              case Failure(e) => complete(error(e))
             }
           } ~
             path("temperature") {
               onComplete(Temperature.getData(start_date, end_date, zip)) {
                 case Success(value) => complete(value)
-                case Failure(e) => complete{
-                  StatusCodes.FailedDependency -> Error(e.getMessage)
-                }
+                case Failure(e) => complete(error(e))
               }
             } ~
             path("rain") {
               onComplete(Rain.getData(start_date, end_date, zip)) {
                 case Success(value) => complete(value)
-                case Failure(e) => complete{
-                  StatusCodes.FailedDependency -> Error(e.getMessage)
-                }
+                case Failure(e) => complete(error(e))
               }
-
             }
         }
     }
