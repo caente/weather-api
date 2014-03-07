@@ -51,10 +51,13 @@ trait WeatherService extends HttpService {
     case _ => StatusCodes.Conflict -> Error(e.getMessage)
   }
 
+  def defaultHandler(start_date: String, end_date: String, zip: String) = Future.failed(new RuntimeException("Unknown path"))
+
   def selectOperation(path: String): (String, String, String) => Future[ResponseClass] = path match {
     case "sun" => Sun.getData
     case "temperature" => Temperature.getData
     case "rain" => Rain.getData
+    case _ => defaultHandler
   }
 
   val myRoute = respondWithHeaders(corsHeaders: _*) {
