@@ -10,7 +10,7 @@ version := "0.1"
 
 scalaVersion := "2.10.3"
 
-name := "weather-challenge"
+name := "weather-api"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 pwd=`pwd`
-java -jar -DAPP_HOME="$pwd/" target/scala-2.10/weather-challenge-assembly-0.1.jar <&- &
+java -jar -DAPP_HOME="$pwd/" target/scala-2.10/weather-api-assembly-0.1.jar <&- &
 echo "****************************************"
 echo "***********  WISHCLOUDS API  ***********"
 echo "***********   started $!   ***********"
