@@ -9,7 +9,7 @@ object Boot extends App {
 
 
   // we need an ActorSystem to host our application in
-  implicit val system = ActorSystem("overcome-news")
+  implicit val system = ActorSystem("weather-challenge")
 
   // create and start our service actor
   val serviceWords = system.actorOf(Props[WeatherServiceActor], "weather-service")
