@@ -9,11 +9,13 @@ import spray.httpx.SprayJsonSupport._
 import spray.httpx.marshalling._
 import spray.httpx.unmarshalling._
 import spray.json._
-import com.locusenergy.challenge.resources.Temperature
-import com.locusenergy.challenge.resources.Rain
-import com.locusenergy.challenge.resources.Sun
+import com.locusenergy.challenge.resources._
 import scala.util.{Failure, Success}
 import spray.http.HttpMethods._
+import scala.util.Success
+import scala.util.Failure
+import scala.concurrent.Future
+import com.locusenergy.challenge.resources.ResponseProtocol._
 import scala.util.Success
 import com.locusenergy.challenge.resources.Error
 import scala.util.Failure
@@ -38,7 +40,6 @@ trait WeatherService extends HttpService {
 
   implicit val exec = actorRefFactory.dispatcher
 
-  import Sun.sunStatusFormat
 
   val corsHeaders = List(HttpHeaders.`Access-Control-Allow-Origin`(AllOrigins),
     HttpHeaders.`Access-Control-Allow-Methods`(GET, POST, OPTIONS, DELETE),
@@ -50,29 +51,23 @@ trait WeatherService extends HttpService {
     case _ => StatusCodes.Conflict -> Error(e.getMessage)
   }
 
+  def selectOperation(path: String): (String, String, String) => Future[ResponseClass] = path match {
+    case "sun" => Sun.getData
+    case "temperature" => Temperature.getData
+    case "rain" => Rain.getData
+  }
+
   val myRoute = respondWithHeaders(corsHeaders: _*) {
     parameters('start_date, 'end_date, 'zip) {
       (start_date, end_date, zip) =>
         respondWithMediaType(`application/json`) {
-          path("sun") {
-            onComplete(Sun.getData(start_date, end_date, zip)) {
-              case Success(value) =>
-                complete(value)
-              case Failure(e) => complete(error(e))
-            }
-          } ~
-            path("temperature") {
-              onComplete(Temperature.getData(start_date, end_date, zip)) {
+          path("weather" / Rest) {
+            path =>
+              onComplete(selectOperation(path)(start_date, end_date, zip)) {
                 case Success(value) => complete(value)
                 case Failure(e) => complete(error(e))
               }
-            } ~
-            path("rain") {
-              onComplete(Rain.getData(start_date, end_date, zip)) {
-                case Success(value) => complete(value)
-                case Failure(e) => complete(error(e))
-              }
-            }
+          }
         }
     }
   }

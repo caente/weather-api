@@ -10,7 +10,9 @@ import DefaultJsonProtocol._
 package object resources {
 
 
-  case class Historic(dates: List[String], values: List[Double])
+  trait ResponseClass
+
+  case class Historic(dates: List[String], values: List[Double]) extends ResponseClass
 
   implicit val historicFormat = jsonFormat2(Historic)
 
@@ -18,6 +20,19 @@ package object resources {
 
   implicit val errorFormat = jsonFormat1(Error)
 
+  import Sun.sunStatusFormat
+
+  object ResponseProtocol extends DefaultJsonProtocol {
+    implicit object ResponseClassFormat extends RootJsonFormat[ResponseClass] {
+      override def read(json: JsValue): ResponseClass = ???
+
+      override def write(obj: ResponseClass): JsValue = obj match {
+        case h:Historic => h.toJson
+        case s:SunStatus => s.toJson
+      }
+    }
+
+  }
 
 
 }
