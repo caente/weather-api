@@ -10,7 +10,7 @@ import DefaultJsonProtocol._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-case class SunStatus(percent_sunny: Double)
+case class SunStatus(percent_sunny: Double) extends ResponseClass
 
 object Sun extends WeatherGuy[SunStatus] {
 
