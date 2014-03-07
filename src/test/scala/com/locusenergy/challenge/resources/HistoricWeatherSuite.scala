@@ -3,7 +3,6 @@ package com.locusenergy.challenge.resources
 import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
 import com.locusenergy.challenge.resources.WeatherGuy.Result
-import scala.io.Source
 
 /**
  * Created: Miguel A. Iglesias
