@@ -18,7 +18,7 @@ trait HistoricWeather extends WeatherGuy[Historic] {
 
   def getValue(result: Result): Double
 
-  protected def foldHistoric(results: List[Result]): Historic =
+  def foldHistoric(results: List[Result]): Historic =
     results.foldRight(Historic(List.empty[String], List.empty[Double])) {
       (result, historic) =>
         Historic(
