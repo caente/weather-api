@@ -17,7 +17,7 @@ class HistoricWeatherSuite extends FunSuite with ShouldMatchers {
 
 
   test("should fill an empty response") {
-    historic.fillEmpty("03/06/2014", "03/06/2014") should be === List(Result("03/05/2014",0,0.0,0.0,0.0,0.0), Result("03/06/2014",0,0.0,0.0,0.0,0.0))
+    historic.fillEmpty("03/06/2014", "03/06/2014") should be === List(Result("03/05/2014T00:00:00-05:00",0,0.0,0.0,0.0,0.0), Result("03/06/2014T00:00:00-05:00",0,0.0,0.0,0.0,0.0))
 
   }
 
