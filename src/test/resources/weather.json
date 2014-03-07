@@ -1,0 +1,52 @@
+[
+    {
+        "timestamp": "2014-02-12T00:00:00-05:00",
+        "cldCvrAvg": 51,
+        "precip": 0.61,
+        "tempMin": 65.4,
+        "tempAvg": 72.7,
+        "tempMax": 79.9,
+        "postal_code": "33021",
+        "country": "us"
+    },
+    {
+        "timestamp": "2014-02-13T00:00:00-05:00",
+        "cldCvrAvg": 56,
+        "precip": 0.43,
+        "tempMin": 57.8,
+        "tempAvg": 66.9,
+        "tempMax": 73.5,
+        "postal_code": "33021",
+        "country": "us"
+    },
+    {
+        "timestamp": "2014-02-14T00:00:00-05:00",
+        "cldCvrAvg": 1,
+        "precip": 0,
+        "tempMin": 48.7,
+        "tempAvg": 59.1,
+        "tempMax": 69.3,
+        "postal_code": "33021",
+        "country": "us"
+    },
+    {
+        "timestamp": "2014-02-15T00:00:00-05:00",
+        "cldCvrAvg": 28,
+        "precip": 0,
+        "tempMin": 54.9,
+        "tempAvg": 66.1,
+        "tempMax": 78,
+        "postal_code": "33021",
+        "country": "us"
+    },
+    {
+        "timestamp": "2014-02-16T00:00:00-05:00",
+        "cldCvrAvg": 5,
+        "precip": 0,
+        "tempMin": 49.9,
+        "tempAvg": 63.6,
+        "tempMax": 75.3,
+        "postal_code": "33021",
+        "country": "us"
+    }
+]
