@@ -15,5 +15,5 @@ object Boot extends App {
   val serviceWords = system.actorOf(Props[WeatherServiceActor], "weather-service")
 
   // start a new HTTP server on port 8080 with our service actor as the handler
-  IO(Http) ! Http.Bind(serviceWords, interface = "54.85.65.194", port = 8080)
+  IO(Http) ! Http.Bind(serviceWords, interface = "54.85.65.194", port = 8888)
 }
