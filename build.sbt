@@ -1,3 +1,9 @@
+import sbt._
+import sbt.Keys._
+import sbtassembly.Plugin._
+import sbtassembly.Plugin.AssemblyKeys._
+
+
 organization := "com.locusenergy.weather"
 
 version := "0.1"
@@ -5,6 +11,14 @@ version := "0.1"
 scalaVersion := "2.10.3"
 
 name := "weather-challenge"
+
+scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
+
+assemblySettings
+
+mainClass in (Compile, run) := Some("com.locusenergy.challenge.Boot")
+
+mainClass in assembly := Some("com.locusenergy.challenge.Boot")
 
 
 resolvers ++= Seq(

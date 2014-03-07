@@ -1,0 +1,8 @@
+#!/bin/sh
+pid=`cat deamon.pid`
+echo "****************************************"
+echo "***********  WISHCLOUDS API  ***********"
+echo "***********   stopped $pid   ***********"
+echo "****************************************"
+kill -9 `cat deamon.pid`
+rm deamon.pid
